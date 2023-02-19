@@ -6,7 +6,7 @@ from flask import request
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec import APISpec
 from flask_apispec.extension import FlaskApiSpec
-from my_def.schemas import ItemsSchema
+from modules.schemas import ItemsSchema
 from flask_apispec import use_kwargs, marshal_with
 
 app = Flask(__name__)

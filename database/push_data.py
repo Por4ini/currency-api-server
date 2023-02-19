@@ -1,5 +1,5 @@
 from app import *
-from my_def.get_data import *
+from modules.get_data import *
 
 date = datetime.date.today()
 
