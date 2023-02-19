@@ -5,6 +5,6 @@ from app import *
 with app.app_context():
     items = Items.query.all()
     for item in items:
-        print(item.id)
+        print(item.date)
         # db.session.delete(item)
         # db.session.commit()

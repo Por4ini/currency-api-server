@@ -1,5 +1,4 @@
 import datetime
-from my_def.get_data import *
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -39,9 +38,7 @@ class Items(db.Model):
 
 @app.route('/items/<currency_code>&<date>', methods=['GET'])
 @marshal_with(ItemsSchema(many=True))
-def get_exchange_rate(currency_code, date=False):
-    currency_code_dat = str(currency_code).split(',')
-
+def get_exchange_rate(currency_code, date):
     if request.method == 'GET':
         items = Items.query.filter(Items.currency_code == currency_code, Items.date == date).all()
         return items
