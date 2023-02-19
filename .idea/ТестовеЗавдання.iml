@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/_pytest" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/attr" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/attrs" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/attrs-22.2.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/black" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/black-23.1.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/blackd" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/blib2to3" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/exceptiongroup" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/exceptiongroup-1.1.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/flask_smorest" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/flask_smorest-0.40.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/iniconfig" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/iniconfig-2.0.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/mypy_extensions-1.0.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/pathspec" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/pathspec-0.11.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/platformdirs" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/platformdirs-3.0.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/pluggy" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/pluggy-1.0.0.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/pytest" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/pytest-7.2.1.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/tomli" />
+      <excludeFolder url="file://$MODULE_DIR$/env/lib/python3.9/site-packages/tomli-2.0.1.dist-info" />
+      <excludeFolder url="file://$MODULE_DIR$/test/.pytest_cache" />
+    </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (ТестовеЗавдання)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

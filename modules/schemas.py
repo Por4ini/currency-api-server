@@ -1,4 +1,4 @@
-from marshmallow import Schema, validate, fields
+from marshmallow import Schema, fields
 
 
 class ItemsSchema(Schema):
