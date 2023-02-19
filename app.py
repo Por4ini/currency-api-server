@@ -10,7 +10,6 @@ from flask_apispec.extension import FlaskApiSpec
 from my_def.schemas import ItemsSchema
 from flask_apispec import use_kwargs, marshal_with
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://habrpguser:Asdf1234@localhost:5432/habrdb"
 db = SQLAlchemy(app)
@@ -38,25 +37,15 @@ class Items(db.Model):
     date = db.Column(db.String())
 
 
-
 @app.route('/items/<currency_code>&<date>', methods=['GET'])
 @marshal_with(ItemsSchema(many=True))
 def get_exchange_rate(currency_code, date=False):
     currency_code_dat = str(currency_code).split(',')
 
-    if len(currency_code_dat) == 1:
-        if request.method == 'GET':
-            items = Items.query.filter(Items.currency_code == currency_code, Items.date == date).all()
+    if request.method == 'GET':
+        items = Items.query.filter(Items.currency_code == currency_code, Items.date == date).all()
         return items
 
-    elif len(currency_code_dat) >= 2:
-        data = []
-        if request.method == 'GET':
-            for item in currency_code_dat:
-                print(item)
-                data.append(Items.query.filter(Items.currency_code == str(item), Items.date == date).all())
-        print(data)
-        return data
 
 @app.route('/items/all', methods=['GET'])
 @marshal_with(ItemsSchema(many=True))
