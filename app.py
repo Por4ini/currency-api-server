@@ -15,7 +15,7 @@ from flask_apispec import marshal_with
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://<USERNAME>:<PASSWORD>@<HOST:PORT>/<NAME_DATABASE>"
+] = "postgresql://habrpguser:Asdf1234@localhost:5432/habrdb"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -74,6 +74,8 @@ def get_exchange_rate(currency_code):
             existing_item = Items.query.filter_by(
                 currency_code=currency_code, date=str(date.today())
             ).first()
+            if not inspector.has_table('items'):
+                Items.__table__.create(bind=db.engine)
             if existing_item is not None:
                 # Update value if item exists
                 existing_item.value = get_external_rate(currency_code)
