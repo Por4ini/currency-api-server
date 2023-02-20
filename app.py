@@ -15,7 +15,7 @@ from flask_apispec import marshal_with
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://habrpguser:Asdf1234@localhost:5432/habrdb"
+] = "postgresql://<USERNAME>:<PASSWORD>@<HOST:PORT>/<NAME_DATABASE>"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
