@@ -15,7 +15,7 @@ from flask_apispec import marshal_with
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://habrpguser:Asdf1234@localhost:5432/habrdb"
+] = "postgresql://<USERNAME>:<PASSWORD>@<HOST:PORT>/<NAME_DATABASE>"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -25,13 +25,17 @@ bp = Blueprint('items', 'items', url_prefix='/api/')
 
 docs = FlaskApiSpec()
 docs.init_app(app)
-app.config.update({
-    'APISPEC_SPEC': APISpec(
-        title='exchange_rate',
-        version='v1',
-        openapi_version='2.0',
-        plugins=[MarshmallowPlugin()]
-    )})
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+app.config.update(
+    {
+        'APISPEC_SPEC': APISpec(
+            title='exchange_rate',
+            version='v1',
+            openapi_version='2.0',
+            plugins=[MarshmallowPlugin()],
+        )
+    }
+)
 
 app.config['API_TITLE'] = 'exchange_rate'
 app.config['API_VERSION'] = '1.0'
@@ -65,10 +69,11 @@ def get_exchange_rate_filter(currency_code, date):
 def get_exchange_rate(currency_code):
     valid_currencies = ["PLN", "UAH", "EUR", "CAD"]
 
-
     try:
         if currency_code in valid_currencies:
-            existing_item = Items.query.filter_by(currency_code=currency_code, date=str(date.today())).first()
+            existing_item = Items.query.filter_by(
+                currency_code=currency_code, date=str(date.today())
+            ).first()
             if existing_item is not None:
                 # Update value if item exists
                 existing_item.value = get_external_rate(currency_code)
@@ -78,8 +83,10 @@ def get_exchange_rate(currency_code):
                 new_item = Items(
                     currency_code=currency_code,
                     value=get_external_rate(currency_code),
-                    date=date.today()
+                    date=date.today(),
                 )
+                if not inspector.has_table('items'):
+                    Items.__table__.create(bind=db.engine)
                 db.session.add(new_item)
                 db.session.commit()
                 db.session.close()
@@ -111,7 +118,9 @@ def post_rate():
     value = get_external_rate(currency_code)
     if not inspector.has_table('items'):
         Items.__table__.create(bind=db.engine)
-    existing_item = Items.query.filter_by(currency_code=currency_code, date=str(date.today())).first()
+    existing_item = Items.query.filter_by(
+        currency_code=currency_code, date=str(date.today())
+    ).first()
     if existing_item is not None:
         return jsonify({'message': 'Item already exists'})
     new_item = Items(
@@ -133,4 +142,4 @@ docs.register(get_exchange_rate_db)
 docs.register(post_rate)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

@@ -16,8 +16,6 @@ def client():
             db.drop_all()
 
 
-
-
 def test_post_rate(client, mocker):
     # Підготовка тестових даних
     data = {'currency_code': 'UAH'}
@@ -30,7 +28,9 @@ def test_post_rate(client, mocker):
 
     # Перевірка статус коду та вмісту відповіді
     assert response.status_code == 200
-    assert response.json == {'message': 'New item is created!'} or {'message': 'Item already exists'}
+    assert response.json == {'message': 'New item is created!'} or {
+        'message': 'Item already exists'
+    }
 
     # Перевірка, що новий елемент було створено в базі даних
     item = Items.query.filter_by(currency_code='UAH', date=str(date.today())).first()
@@ -44,17 +44,18 @@ def test_get_exchange_rate_db(client):
     response = client.get("/api/all")
     assert response.status_code == 200
 
+
 def test_get_exchange_rate(client):
     response = client.get("/api/UAH")
     assert response.status_code == 200
     assert response.json == {"currency_code": "UAH", "value": get_external_rate('UAH')}
+
 
 def test_get_exchange_rate_filter(client):
     data = {"item": "USD"}
     client.post("/api/items", json=data)
     response = client.get("/api/USD&2023-02-20")
     assert response.status_code == 200 or 404
-
 
 
 def test_get_external_rate():
