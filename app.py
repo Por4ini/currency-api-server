@@ -15,7 +15,7 @@ from flask_apispec import marshal_with
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://<USERNAME>:<PASSWORD>@<HOST:PORT>/<NAME_DATABASE>"
+] = "postgresql://habrpguser:Asdf1234@localhost:5432/habrdb"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -82,6 +82,7 @@ def get_exchange_rate(currency_code):
                 )
                 db.session.add(new_item)
                 db.session.commit()
+                db.session.close()
 
         items = {
             "currency_code": currency_code,
@@ -121,6 +122,7 @@ def post_rate():
 
     db.session.add(new_item)
     db.session.commit()
+    db.session.close()
     return jsonify({'message': 'New item is created!'})
 
 

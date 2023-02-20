@@ -18,24 +18,6 @@ def client():
 
 
 
-
-def test_get_exchange_rate_db(client):
-    response = client.get("/api/all")
-    assert response.status_code == 200
-
-def test_get_exchange_rate(client):
-    response = client.get("/api/UAH")
-    assert response.status_code == 200
-    assert response.json == {"currency_code": "UAH", "value": get_external_rate('UAH')}
-
-def test_get_exchange_rate_filter(client):
-    data = {"item": "USD"}
-    client.post("/api/items", json=data)
-    response = client.get("/api/USD&2023-02-20")
-    assert response.status_code == 200 or 404
-
-
-
 def test_post_rate(client, mocker):
     # Підготовка тестових даних
     data = {'currency_code': 'UAH'}
@@ -55,6 +37,25 @@ def test_post_rate(client, mocker):
     assert item.currency_code == 'UAH'
     assert item.value == rate
     assert item.date == str(date.today())
+    db.session.close()
+
+
+def test_get_exchange_rate_db(client):
+    response = client.get("/api/all")
+    assert response.status_code == 200
+
+def test_get_exchange_rate(client):
+    response = client.get("/api/UAH")
+    assert response.status_code == 200
+    assert response.json == {"currency_code": "UAH", "value": get_external_rate('UAH')}
+
+def test_get_exchange_rate_filter(client):
+    data = {"item": "USD"}
+    client.post("/api/items", json=data)
+    response = client.get("/api/USD&2023-02-20")
+    assert response.status_code == 200 or 404
+
+
 
 def test_get_external_rate():
     # Перевіряємо, чи повертає функція float
