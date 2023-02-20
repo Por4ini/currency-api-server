@@ -53,9 +53,11 @@ http://127.0.0.1:5000/api/UAH&2023-02-20
 Використання директиви cron для отримання нових курсів із певною періодичністю:
 Відкрити файл в консолі: EDITOR=nano crontab -e
 Вставити значення: 
+
 0 1 * * * curl --request POST 'http://localhost:5000/api/add' --header 'Content-Type: application/json' --data '{"currency_code":"CAD"}' && \
     curl --request POST 'http://localhost:5000/api/add' --header 'Content-Type: application/json' --data '{"currency_code":"UAH"}' && \
     curl --request POST 'http://localhost:5000/api/add' --header 'Content-Type: application/json' --data '{"currency_code":"EUR"}' && \
     curl --request POST 'http://localhost:5000/api/add' --header 'Content-Type: application/json' --data '{"currency_code":"PLN"}'
+    
 Зберегти файл зі списком задач і вийти з редактора.
 
